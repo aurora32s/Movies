@@ -1,15 +1,16 @@
 <template>
     <div class="movie">
-        <img class="post" :src="movie.Poster"/>
+        <img
+            class="post"
+            :src="movie.Poster"
+            @click="$emit('click', movie.imdbID)"/>
     </div>
 </template>
 
 <script>
 export default {
     props: ['movie'],
-    created() {
-        console.log(this.movie)
-    }
+    emits: ['click']
 }
 </script>
 

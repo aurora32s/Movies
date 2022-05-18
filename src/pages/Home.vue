@@ -22,7 +22,8 @@
             <PostComponent
                 v-for="movie in movies"
                 :key="movie.imdbID"
-                :movie="movie"/>
+                :movie="movie"
+                @click="onItemClicked"/>
         </div>
     </div>
 </template>
@@ -71,10 +72,10 @@ export default {
                 }
             })
         },
-        move() {
+        onItemClicked(movieId) {
             this.$router.replace({
                 path: '/detail',
-                query: { id: '123' }
+                query: { id: movieId }
             })
         }
     }
