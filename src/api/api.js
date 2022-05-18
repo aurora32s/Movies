@@ -1,12 +1,15 @@
 import { BASE_URL } from "~/api/url"
 
-export const request = async (url, params, option = {}) => {
+const API_KEY = '7035c60c'
+
+export const request = async (url, params = {}, option = {}) => {
     try {
         let parameter = ''
-        for (const { key, value } of params) {
+        console.log(params)
+        for (const [key, value] of Object.entries(params)) {
             parameter += `&${key}=${value}`
         }
-        const response = await fetch(`${BASE_URL}${url}?${parameter}`)
+        const response = await fetch(`${BASE_URL}${url}?apikey=${API_KEY}${parameter}`)
 
         if (response.ok) {
             const data = response.json()

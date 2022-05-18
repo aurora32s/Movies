@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+
 import router from '~/route/router'
 import App from '~/App'
 
