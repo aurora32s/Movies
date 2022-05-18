@@ -13,7 +13,6 @@ html, body {
 }
 
 #app {
-    height: 100vh;
     background-color: $background;
 }
 </style>
