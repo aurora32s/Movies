@@ -5,7 +5,7 @@
         <img class="poster" :src="test"/>
         <div class="info-container">
             <div class="title">
-                <p>1917</p>
+                <p>{{ movie.Title }}</p>
                 <img class="img left" :src="plant"/>
                 <img class="img right" :src="plants"/>
             </div>
@@ -65,18 +65,32 @@
 <script>
 import plant from '../assets/images/plant.png'
 import plants from '../assets/images/plants.png'
-import test from '../assets/images/tv.png'
 
+import { getMovieById } from '~/repository/Movie.js'
+
+const rateImg = [
+
+]
 export default {
-    props: ['id'],
     data() {
         return {
             plant, plants,
-            test
+            movie: {}
         }
     },
-    mounted() {
-        console.log(this.id)
+    mounted() { 
+        const { id } = this.$route.query
+        if (!id) return
+
+        getMovieById({
+            i: id,
+            plot: 'full'
+        }).then( res => {
+            if (res.success) {
+                this.movie = res
+                console.log(res)
+            }
+        })
     }
 }
 </script>
