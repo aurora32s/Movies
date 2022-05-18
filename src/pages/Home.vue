@@ -21,7 +21,8 @@
         <div class="grid-container">
             <PostComponent
                 v-for="movie in movies"
-                :key="movie.imdbID"/>
+                :key="movie.imdbID"
+                :movie="movie"/>
         </div>
     </div>
 </template>
@@ -38,9 +39,9 @@ import PostComponent from '~/components/PostComponent'
 import { getMoviesByTitle } from '~/repository/Movie'
 
 export default {
-    components: [
+    components: {
         PostComponent
-    ],
+    },
     data() {
         return {
             plant, plants, test, search,
@@ -52,12 +53,21 @@ export default {
     methods: {
         searchByTitle() { // 영화 이름으로 검색
             this.pageNo = 1
+            this.movies = []
+            this.requestMovies()
+        },
+        requestMovies() {
             getMoviesByTitle({
                 s: this.title,
                 page: this.pageNo
             }).then((res) => {
                 if (res.success) {
-                    this.movies = res.Search
+                    this.movies.push(...res.Search)
+
+                    if (res.Search.length >= 10) {
+                        // this.pageNo += 1
+                        // this.requestMovies()
+                    }
                 }
             })
         },
@@ -123,7 +133,7 @@ export default {
     .grid-container {
         display: inline-grid;
         grid-gap: 6px;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         padding-top: 45px;
     }
 }

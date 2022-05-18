@@ -1,12 +1,15 @@
 <template>
     <div class="movie">
-        <img class="post" :src="test"/>
+        <img class="post" :src="movie.Poster"/>
     </div>
 </template>
 
 <script>
 export default {
-    
+    props: ['movie'],
+    created() {
+        console.log(this.movie)
+    }
 }
 </script>
 
@@ -14,7 +17,6 @@ export default {
 .movie {
     width: 190px;
     height: 260px;
-    border: 1px solid white;
 
     .post {
         object-fit: contain;
