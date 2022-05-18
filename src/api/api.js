@@ -8,11 +8,11 @@ export const request = async (url, params = {}, option = {}) => {
         for (const [key, value] of Object.entries(params)) {
             query += `&${key}=${value}`
         }
-        console.log(`${BASE_URL}${url}?apikey=${API_KEY}${query}`)
         const response = await fetch(`${BASE_URL}${url}?apikey=${API_KEY}${query}`)
 
         if (response.ok) {
             const data = await response.json()
+
             return {
                 ...data,
                 success: true

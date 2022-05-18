@@ -2,7 +2,7 @@
 <template>
     <div id="detail">
         <span class="page-name">NAMU CINEMA🔥</span>
-        <img class="poster" :src="test"/>
+        <img class="poster" :src="movie.Poster"/>
         <div class="info-container">
             <div class="title">
                 <p>{{ movie.Title }}</p>
@@ -10,52 +10,29 @@
                 <img class="img right" :src="plants"/>
             </div>
             <div class="rate-container">
-                <div class="rate">
-                    <span class="rate-name">Internet Movie Database</span>
-                    <img class="rate-img" :src="test">
-                    <span class="rate-cost">6.8/10</span>
-                </div>
-                <div class="rate">
-                    <span class="rate-name">Internet Movie Database</span>
-                    <img class="rate-img" :src="test">
-                    <span class="rate-cost">6.8/10</span>
-                </div>
-                <div class="rate">
-                    <span class="rate-name">Internet Movie Database</span>
-                    <img class="rate-img" :src="test">
-                    <span class="rate-cost">6.8/10</span>
-                </div>
-                <div class="rate">
-                    <span class="rate-name">Internet Movie Database</span>
-                    <img class="rate-img" :src="test">
-                    <span class="rate-cost">6.8/10</span>
-                </div>
+                <RateComponent v-for="(rate, index) in movie.Ratings"
+                    :key="index"
+                    :name="rate.Source"
+                    :value="rate.Value"
+                    :img="rateImg[index]"/>
+                <RateComponent
+                    name="IMDB"
+                    :value="movie.imdbRating"
+                    :img="imdb"/>
             </div>
             <table class="info-table">
-                <tr class="info-item">
-                    <td class="info-title">상영일</td>
-                    <td class="info-content">10 Jan 2020</td>
-                </tr>
-                <tr class="info-item">
-                    <td class="info-title">런타임</td>
-                    <td class="info-content">119 min</td>
-                </tr>
-                <tr class="info-item">
-                    <td class="info-title">장르</td>
-                    <td class="info-content">Action, Drama, War</td>
-                </tr>
-                <tr class="info-item">
-                    <td class="info-title">감독</td>
-                    <td class="info-content">Sam Mendes</td>
-                </tr>
-                <tr class="info-item">
-                    <td class="info-title">배우</td>
-                    <td class="info-content">Dean-Chales Chapman, George Mackay, Daniel Mays...</td>
-                </tr>
-                <tr class="info-item">
-                    <td class="info-title">줄거리</td>
-                    <td class="info-content">줄거리 길게...</td>
-                </tr>
+                <MovieInfoComponent name="상영일"
+                    :content="movie.Released"/>
+                <MovieInfoComponent name="런타임"
+                    :content="movie.Runtime"/>
+                <MovieInfoComponent name="장르"
+                    :content="movie.Genre"/>
+                <MovieInfoComponent name="감독"
+                    :content="movie.Director"/>
+                <MovieInfoComponent name="배우"
+                    :content="movie.Actors"/>
+                <MovieInfoComponent name="줄거리"
+                    :content="movie.Plot"/>
             </table>
         </div>
         <div id="dim"></div>
@@ -65,16 +42,26 @@
 <script>
 import plant from '../assets/images/plant.png'
 import plants from '../assets/images/plants.png'
+// 평점 이미지
+import imdb from '../assets/images/imdb.png'
+import metacritic from '../assets/images/metacritic.png'
+import tomato from '../assets/images/tomato.png'
+import internet from '../assets/images/tv.png'
+
+// component
+import RateComponent from '../components/RateComponent'
+import MovieInfoComponent from '../components/MovieInfoComponent'
 
 import { getMovieById } from '~/repository/Movie.js'
 
-const rateImg = [
-
-]
 export default {
+    components: { RateComponent, MovieInfoComponent },
     data() {
         return {
-            plant, plants,
+            rateImg: [
+                internet, tomato, metacritic
+            ],
+            plant, plants, imdb,
             movie: {}
         }
     },
@@ -114,7 +101,6 @@ $post_depth: 1;
     }
     .poster {
         object-fit: contain;
-        width: 40%;
     }
     .info-container {
         width: 70%;
@@ -146,35 +132,13 @@ $post_depth: 1;
         }
         .rate-container {
             display: flex;
-            height: 248px;
+            height: 200px;
             justify-content: center;
-            .rate {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 155px;
-                margin: 15px 2px;
-                border: 1px dashed white;
-                border-radius: 15px;
-                color: white;
-                text-align: center;
-                img {
-                    width: 100px;
-                    object-fit: contain;
-                }
-            }
         }
         .info-table {
             width: 100%;
             padding-top: 25px;
             color: white;
-            .info-item {
-                line-height: 30px;
-            }
-            .info-title {
-                width: 20%;
-            }
         }
     }
 }

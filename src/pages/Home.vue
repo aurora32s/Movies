@@ -62,7 +62,7 @@ export default {
                 s: this.title,
                 page: this.pageNo
             }).then(res => {
-                if (res.success) {
+                if (res.success && res.Search) {
                     this.movies.push(...res.Search)
 
                     if (res.Search.length >= 10) {
