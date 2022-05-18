@@ -8,7 +8,7 @@ import Detail from '~/components/Detail'
 
 const routes = [
     { path: '/', component: Home },
-    { path: '/detail/:id', component: Detail }
+    { path: '/detail', component: Detail }
 ]
 
 const router = createRouter({
