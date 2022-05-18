@@ -1,7 +1,7 @@
 <template>
     <div class="movie">
         <img
-            v-if="movie.Poster"
+            v-if="movie.Poster && movie.Poster != 'N/A'"
             class="post"
             :src="movie.Poster"
             @click="$emit('click', movie.imdbID)"/>
@@ -26,7 +26,7 @@ export default {
     color: white;
 
     .post {
-        object-fit: contain;
+        object-fit: cover;
         width: 100%;
         height: 100%;
     }

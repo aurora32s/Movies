@@ -83,6 +83,10 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+    font-family: 'DOHYEON';
+    src: url('../assets/fonts/BMDOHYEON_ttf.ttf');
+}
 #home {
     padding: 14% 10% 0 10%;
     text-align: center;
@@ -97,6 +101,7 @@ export default {
                 left: 0;
                 bottom: 0;
                 color: white;
+                font-family: 'DOHYEON';
             }
             .img.right {
                 position: absolute;

@@ -83,6 +83,14 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+    font-family: 'DOHYEON';
+    src: url('../assets/fonts/BMDOHYEON_ttf.ttf');
+}
+@font-face {
+    font-family: 'HANNA';
+    src: url('../assets/fonts/BMHANNAAir_ttf.ttf');
+}
 $pre_depth: 3;
 $mid_depth: 2;
 $post_depth: 1;
@@ -98,6 +106,7 @@ $post_depth: 1;
         padding: 25px;
         color: white;
         z-index: $pre_depth;
+        font-family: 'DOHYEON';
     }
     .poster {
         object-fit: contain;
@@ -112,6 +121,7 @@ $post_depth: 1;
             position: relative;
             padding-top:25px;
             border-bottom: 2px solid white;
+            font-family: 'DOHYEON';
             p {
                 margin: 0;
                 font-size: 65px;

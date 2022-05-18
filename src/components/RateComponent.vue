@@ -17,6 +17,14 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+    font-family: 'DOHYEON';
+    src: url('../assets/fonts/BMDOHYEON_ttf.ttf');
+}
+@font-face {
+    font-family: 'HANNA';
+    src: url('../assets/fonts/BMHANNAAir_ttf.ttf');
+}
 .rate {
     display: flex;
     flex-direction: column;
@@ -30,6 +38,10 @@ export default {
     text-align: center;
     .rate-name {
         padding: 7px;
+        font-family: 'DOHYEON';
+    }
+    .rate-cost {
+        font-family: 'HANNA';
     }
     img {
         width: 65px;
