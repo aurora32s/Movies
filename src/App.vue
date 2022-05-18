@@ -12,7 +12,7 @@ html, body {
     margin: 0;
 }
 
-#app {
+body {
     background-color: $background;
 }
 </style>

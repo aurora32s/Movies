@@ -7,62 +7,21 @@
                 <img class="img left" :src="plants"/>
             </div>
             <div class="bottom">
-                <input class="input" type="text"/>
-                <img class="right" :src="search"/>
+                <input
+                    class="input"
+                    type="text"
+                    v-model="title"
+                    @keyup.enter="searchByTitle"/>
+                <img
+                    class="right"
+                    :src="search"
+                    @click="searchByTitle"/>
             </div>
         </div>
         <div class="grid-container">
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
-            <div class="movie">
-                <img class="post" :src="test"/>
-            </div>
+            <PostComponent
+                v-for="movie in movies"
+                :key="movie.imdbID"/>
         </div>
     </div>
 </template>
@@ -73,13 +32,35 @@ import plants from '../assets/images/plants.png'
 import search from '../assets/images/search.png'
 import test from '../assets/images/tv.png'
 
+// component
+import PostComponent from '~/components/PostComponent'
+
+import { getMoviesByTitle } from '~/repository/Movie'
+
 export default {
+    components: [
+        PostComponent
+    ],
     data() {
         return {
-            plant, plants, test, search
+            plant, plants, test, search,
+            title: '', // 검색 keyword(영화 이름)
+            pageNo: 1, // 요청할 페이지 번호
+            movies: [] // 영화 리스트
         }
     },
     methods: {
+        searchByTitle() { // 영화 이름으로 검색
+            this.pageNo = 1
+            getMoviesByTitle({
+                s: this.title,
+                page: this.pageNo
+            }).then((res) => {
+                if (res.success) {
+                    this.movies = res.Search
+                }
+            })
+        },
         move() {
             this.$router.replace({
                 path: '/detail',
@@ -144,17 +125,6 @@ export default {
         grid-gap: 6px;
         grid-template-columns: repeat(4, 1fr);
         padding-top: 45px;
-    }
-    .movie {
-        width: 190px;
-        height: 260px;
-        border: 1px solid white;
-
-        .post {
-            object-fit: contain;
-            width: 100%;
-            height: 100%;
-        }
     }
 }
 </style>

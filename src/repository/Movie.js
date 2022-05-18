@@ -9,7 +9,7 @@ import { request } from "~/api/api"
  * @param {Number} page 검색 페이지
  */
 export const getMoviesByTitle = async (params) => {
-    return request('/', params)
+    return await request('/', params)
 }
 
 /**
@@ -17,5 +17,5 @@ export const getMoviesByTitle = async (params) => {
  * @param {*} plot 영화 줄거리 길이(short/full)
  */
 export const getMovieById = async (params) => {
-    return request('/', params)
+    return await request('/', params)
 }
