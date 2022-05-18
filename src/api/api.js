@@ -4,16 +4,18 @@ const API_KEY = '7035c60c'
 
 export const request = async (url, params = {}, option = {}) => {
     try {
-        let parameter = ''
-        console.log(params)
+        let query = ''
         for (const [key, value] of Object.entries(params)) {
-            parameter += `&${key}=${value}`
+            query += `&${key}=${value}`
         }
-        const response = await fetch(`${BASE_URL}${url}?apikey=${API_KEY}${parameter}`)
+        const response = await fetch(`${BASE_URL}${url}?apikey=${API_KEY}${query}`)
 
         if (response.ok) {
-            const data = response.json()
-            return data
+            const data = await response.json()
+            return {
+                ...data,
+                success: true
+            }
         }
 
         throw new Error()
