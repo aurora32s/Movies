@@ -1,9 +1,11 @@
 <template>
     <div class="movie">
         <img
+            v-if="movie.Poster"
             class="post"
             :src="movie.Poster"
             @click="$emit('click', movie.imdbID)"/>
+        <span v-else>이미지 없음</span>
     </div>
 </template>
 
@@ -16,8 +18,12 @@ export default {
 
 <style lang="scss">
 .movie {
+    display: flex;
     width: 190px;
     height: 260px;
+    justify-content: center;
+    align-items: center;
+    color: white;
 
     .post {
         object-fit: contain;

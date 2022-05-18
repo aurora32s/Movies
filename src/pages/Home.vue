@@ -61,7 +61,7 @@ export default {
             getMoviesByTitle({
                 s: this.title,
                 page: this.pageNo
-            }).then((res) => {
+            }).then(res => {
                 if (res.success) {
                     this.movies.push(...res.Search)
 
@@ -73,7 +73,7 @@ export default {
             })
         },
         onItemClicked(movieId) {
-            this.$router.replace({
+            this.$router.push({
                 path: '/detail',
                 query: { id: movieId }
             })
