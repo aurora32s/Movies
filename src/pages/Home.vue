@@ -18,7 +18,10 @@
                     @click="searchByTitle"/>
             </div>
         </div>
-        <div class="grid-container">
+        <div
+            class="grid-container"
+            ref="infinite_list"
+            @scroll="onListScroll">
             <PostComponent
                 v-for="movie in movies"
                 :key="movie.imdbID"
@@ -48,6 +51,7 @@ export default {
             plant, plants, test, search,
             title: '', // 검색 keyword(영화 이름)
             pageNo: 1, // 요청할 페이지 번호
+            isNextPage: false, // 다음 페이지 존재 여부
             movies: [] // 영화 리스트
         }
     },
@@ -57,26 +61,36 @@ export default {
             this.movies = []
             this.requestMovies()
         },
-        requestMovies() {
-            getMoviesByTitle({
+        async requestMovies() {
+            const response = await getMoviesByTitle({
                 s: this.title,
                 page: this.pageNo
-            }).then(res => {
-                if (res.success && res.Search) {
-                    this.movies.push(...res.Search)
-
-                    if (res.Search.length >= 10) {
-                        // this.pageNo += 1
-                        // this.requestMovies()
-                    }
-                }
             })
+            console.log(response)
+            if (response.success && response.Search) {
+                this.movies.push(...response.Search)
+
+                // 결과 최대 길이가 10개이므로 그 이상일 때는
+                // 다음 페이지 존재
+                this.isNextPage = response.Search.length >= 10
+            }
         },
         onItemClicked(movieId) {
             this.$router.push({
                 path: '/detail',
                 query: { id: movieId }
             })
+        },
+        onListScroll() {
+            const listEl = this.$refs.infinite_list
+
+            if (listEl.scrollTop + listEl.clientHeight >=
+                listEl.scrollHeight - 15) {
+                    if (this.isNextPage) {
+                        this.pageNo += 1
+                        this.requestMovies()
+                    }
+                }
         }
     }
 }
@@ -139,8 +153,10 @@ export default {
     .grid-container {
         display: inline-grid;
         grid-gap: 6px;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        height: 72vh;
         padding-top: 45px;
+        overflow: auto;
     }
 }
 </style>
