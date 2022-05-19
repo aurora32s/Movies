@@ -52,6 +52,11 @@ module.exports = {
         new VueLoaderPlugin(),
         new HtmlPlugin({
             template: './src/index.html'
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: 'static' }
+            ]
         })
     ]
 }
