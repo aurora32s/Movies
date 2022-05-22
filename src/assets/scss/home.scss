@@ -1,0 +1,58 @@
+#home {
+    padding: 14% 10% 0 10%;
+    text-align: center;
+
+    .header {
+        padding: 0 20%;
+
+        .top {
+            position: relative;
+            .page-name {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                color: $white;
+                font-family: 'DOHYEON';
+            }
+            .img.right {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+            .img.left {
+                position: absolute;
+                right: 36px;
+                bottom: 0;
+            }
+        }
+        .bottom {
+            display: flex;
+            height: 54px;
+            border-radius: 8px;
+            background-color: $white;
+
+            input {
+                width: 100%;
+                padding: 9px;
+                border: none;
+                outline: none;
+                font-size: 25px;
+                background: none;
+            }
+            .right {
+                padding: 10px;
+            }
+        }
+    }
+    .img {
+        width: 85px;
+    }
+    .grid-container {
+        display: inline-grid;
+        grid-gap: 6px;
+        grid-template-columns: repeat(3, 1fr);
+        height: 72vh;
+        padding-top: 45px;
+        overflow: auto;
+    }
+}
